@@ -18,6 +18,7 @@ int addItem(FILE *fp);
 void strlower(char c[]);
 int search(char name[]);
 void store();
+void list();
 
 int main()
 {
@@ -38,6 +39,7 @@ step1:
     }
     else if (mode == 0)
     {
+        list();
         return 1;
     }
     goto step1;
@@ -131,7 +133,7 @@ void store()
             printf("\nProduct not in inventory\nPlease add this in inventory\n");
             addItem(fp);
             printf("\nPlease re-enter the product price:");
-            scanf("%d",&items[counter].cost);
+            scanf("%d", &items[counter].cost);
         }
         counter++;
     }
@@ -204,4 +206,23 @@ void showbill(struct item product[], int counter)
     printf("________________________________");
     printf("\nTotal: %d Rs\n\n", total);
     printf("________________________________\n");
+}
+
+//list the content of csv
+void list()
+{
+    FILE *fp = fopen("shop.csv", "r");
+    if (fp == NULL)
+    {
+        printf("Could not open file");
+    }
+    else
+    {
+        char buffer[200];
+        while (feof(fp) != true)
+        {
+            fgets(buffer, 200, fp);
+            printf("%s", buffer);
+        }
+    }
 }
