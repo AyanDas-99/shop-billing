@@ -45,7 +45,6 @@ step1:
 }
 
 // INVENTORY MODE
-
 void inventory()
 {
     FILE *fp = fopen("shop.csv", "a");
@@ -108,6 +107,7 @@ void strlower(char a[])
     }
 }
 
+//Store or billing mode
 void store()
 {
     FILE *fp = fopen("shop.csv", "a");
@@ -130,7 +130,8 @@ void store()
         {
             printf("\nProduct not in inventory\nPlease add this in inventory\n");
             addItem(fp);
-            items[counter].cost = search(items[counter].name);
+            printf("\nPlease re-enter the product price:");
+            scanf("%d",&items[counter].cost);
         }
         counter++;
     }
@@ -186,10 +187,12 @@ int search(char name[])
     }
 }
 
+//Print the bill
 void showbill(struct item product[], int counter)
 {
     system("clear");
     int total;
+    printf("DBRAIT GENERAL STORE\n\tBILL");
     printf("\n________________________________");
     printf("\nItem\tRate\tQuantity  Price\n");
     printf("________________________________\n");
