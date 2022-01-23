@@ -4,17 +4,22 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+struct item
+{
+    int cost, quantity;
+    char name[50];
+};
+
 // ALl functions:
-void showbill(int a[], char **products, int counter);
+void showbill(struct item items[], int counter);
 void inventory();
 void fileSetup(FILE *fp);
 int addItem(FILE *fp);
 void strlower(char c[]);
 int search(char name[]);
 void store();
-//void makezero();
 
-void main()
+int main()
 {
     printf("*******************************************\n************* BILLING SYSTEM *************\n********************************************\n");
     int mode;
@@ -22,15 +27,21 @@ step1:
     printf("\n0 -> EXIT\n1 -> INVENTORY MODE\n2 -> BILLING MODE\n\nEnter Mode:");
     scanf("%d", &mode);
     system("clear");
-    if(mode == 1)
+    if (mode == 1)
     {
         inventory();
     }
     else if (mode == 2)
     {
         store();
+        return 0;
     }
-   goto step1; 
+    else if (mode == 0)
+    {
+        return 1;
+    }
+    goto step1;
+    return 0;
 }
 
 // INVENTORY MODE
@@ -100,41 +111,30 @@ void strlower(char a[])
 void store()
 {
     FILE *fp = fopen("shop.csv", "a");
-    char productName[50];
-    int quantity;
-    int rate;
-    int prices[10];
-    char *products[50];
+    printf("Enter 1 in product name when done\n");
     int counter = 0;
+    struct item items[20];
     while (true)
     {
         printf("Product Name: ");
-        scanf("%s", productName);
-        if (strcmp(productName, "1") == 0)
+        scanf("%s", &items[counter].name);
+        if (strcmp(items[counter].name, "1") == 0)
         {
             break;
         }
         printf("Quantity: ");
-        scanf("%d", &quantity);
-        strlower(productName);
-        rate = search(productName);
-        if (rate == 0)
+        scanf("%d", &items[counter].quantity);
+        strlower(items[counter].name);
+        items[counter].cost = search(items[counter].name);
+        if (items[counter].cost == 0)
         {
-            printf("Product not in inventory\nPlease add this in inventory");
+            printf("\nProduct not in inventory\nPlease add this in inventory\n");
             addItem(fp);
-            rate = search(productName);
+            items[counter].cost = search(items[counter].name);
         }
-        prices[counter] = rate;
-        // strcpy(products[counter],productName);
         counter++;
-        // printf("\nrate: %d Rs\nCost: %d Rs\n\n", rate, rate * quantity);
     }
-    for (int i = 0; i < counter; i++)
-    {
-        printf("%s\t%d", products[i], prices[i]);
-    }
-
-    // showbill(prices, products, counter);
+    showbill(items, counter);
 }
 
 // search in file and return
@@ -186,20 +186,19 @@ int search(char name[])
     }
 }
 
-void showbill(int a[], char **products, int counter)
+void showbill(struct item product[], int counter)
 {
+    system("clear");
     int total;
-    printf("________________________________");
-    printf("Item\tPrice");
+    printf("\n________________________________");
+    printf("\nItem\tRate\tQuantity  Price\n");
+    printf("________________________________\n");
     for (int i = 0; i < counter; i++)
     {
-        printf("%s  %d", products[i], a[i]);
-        total += a[i];
+        printf("%s \t %d \t %d \t %d\n", product[i].name, product[i].cost, product[i].quantity, product[i].cost * product[i].quantity);
+        total += product[i].cost * product[i].quantity;
     }
-    printf("\nTotal: %d", total);
     printf("________________________________");
-}
-
-void makezero(int a[])
-{
+    printf("\nTotal: %d Rs\n\n", total);
+    printf("________________________________\n");
 }
