@@ -39,7 +39,6 @@ step1:
     }
     else if (mode == 0)
     {
-        list();
         return 1;
     }
     goto step1;
@@ -54,18 +53,36 @@ void inventory()
         printf("Could not open file");
     else
     {
-        int run = 0;
-        while (run == 0)
+    here:
+        printf("1-> List Items\n2-> Add Items\n:");
+        int choice;
+        scanf("%d", &choice);
+        if (choice == 1)
         {
-            fseek(fp, 0, SEEK_END);
-            int size = ftell(fp);
-            if (size == 0)
-            {
-                printf("File is empty!!");
-                fileSetup(fp);
-            }
-            run = addItem(fp);
+            list();
         }
+        else if (choice == 2)
+        {
+            /* code */
+
+            int run = 0;
+            while (run == 0)
+            {
+                fseek(fp, 0, SEEK_END);
+                int size = ftell(fp);
+                if (size == 0)
+                {
+                    printf("File is empty!!");
+                    fileSetup(fp);
+                }
+                run = addItem(fp);
+            }
+        }
+        else
+        {
+            goto here;
+        }
+
         fclose(fp);
     }
 }
