@@ -19,12 +19,15 @@ void strlower(char c[]);
 int search(char name[]);
 void store();
 void list();
+void pmode(char name[]);
+
 
 int main()
 {
-    printf("*******************************************\n************* BILLING SYSTEM *************\n********************************************\n");
+    printf("********************************************\n************* BILLING SYSTEM ***************\n********************************************\n");
     int mode;
 step1:
+    pmode("Dashboard");
     printf("\n0 -> EXIT\n1 -> INVENTORY MODE\n2 -> BILLING MODE\n\nEnter Mode:");
     scanf("%d", &mode);
     system("clear");
@@ -53,13 +56,16 @@ void inventory()
         printf("Could not open file");
     else
     {
+        pmode("Inventory Mode");
+        printf("0-> Exit\n1-> List Items\n2-> Add Items");
     here:
-        printf("1-> List Items\n2-> Add Items\n:");
+        printf("\n:");
         int choice;
         scanf("%d", &choice);
         if (choice == 1)
         {
             list();
+            goto here;
         }
         else if (choice == 2)
         {
@@ -77,12 +83,18 @@ void inventory()
                 }
                 run = addItem(fp);
             }
+            goto here;
         }
+        else if (choice == 0)
+        {
+            goto there;
+        }
+
         else
         {
             goto here;
         }
-
+    there:
         fclose(fp);
     }
 }
@@ -102,7 +114,7 @@ int addItem(FILE *fp)
     char price[50];
     printf("Product name (Without space):");
     scanf("%s", name);
-    if (strcmp(name, "1") == 0)
+    if (strcmp(name, "0") == 0)
     {
         return 1;
     }
@@ -129,15 +141,16 @@ void strlower(char a[])
 //Store or billing mode
 void store()
 {
+    pmode("Billing Mode");
     FILE *fp = fopen("shop.csv", "a");
-    printf("Enter 1 in product name when done\n");
+    printf("Enter 0 in product name when done\n");
     int counter = 0;
     struct item items[20];
     while (true)
     {
         printf("Product Name: ");
         scanf("%s", &items[counter].name);
-        if (strcmp(items[counter].name, "1") == 0)
+        if (strcmp(items[counter].name, "0") == 0)
         {
             break;
         }
@@ -196,7 +209,7 @@ int search(char name[])
                 }
                 if (strcmp(name, product) == 0)
                 {
-                    printf("Found");
+                    // printf("Found");
                     rate = atoi(price);
                 }
                 token = strtok(NULL, ",");
@@ -236,10 +249,22 @@ void list()
     else
     {
         char buffer[200];
+        printf("\n");
         while (feof(fp) != true)
         {
             fgets(buffer, 200, fp);
             printf("%s", buffer);
         }
+        printf("\n");
+
     }
+}
+
+//print mode name
+void pmode(char name[])
+{
+    printf("**************************\n");
+    printf("\t%s\n",name);
+    printf("**************************\n");
+
 }
