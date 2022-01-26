@@ -24,7 +24,7 @@ void pmode(char name[]);
 
 int main()
 {
-    printf("********************************************\n************* BILLING SYSTEM ***************\n********************************************\n");
+    printf("********************************************\n************* BILLING SYSTEM ***************\n********************************************\n\n");
     int mode;
 step1:
     pmode("Dashboard");
@@ -56,9 +56,9 @@ void inventory()
         printf("Could not open file");
     else
     {
+    here:
         pmode("Inventory Mode");
         printf("0-> Exit\n1-> List Items\n2-> Add Items");
-    here:
         printf("\n:");
         int choice;
         scanf("%d", &choice);
@@ -95,6 +95,7 @@ void inventory()
             goto here;
         }
     there:
+        system("clear");
         fclose(fp);
     }
 }
@@ -116,9 +117,10 @@ int addItem(FILE *fp)
     scanf("%s", name);
     if (strcmp(name, "0") == 0)
     {
+        system("clear");
         return 1;
     }
-    printf("\nCost per unit (Rs):");
+    printf("Cost per unit (Rs):");
     scanf("%s", price);
     strcat(name, ",");
     strcat(name, price);
