@@ -30,18 +30,20 @@ step1:
     printf("\n0 -> EXIT\n1 -> INVENTORY MODE\n2 -> BILLING MODE\n\nEnter Mode:");
     scanf("%d", &mode);
     system("clear");
-    if (mode == 1)
+    switch (mode)
     {
+    case 1:
         inventory();
-    }
-    else if (mode == 2)
-    {
+        break;
+    case 2:
         store();
         return 0;
-    }
-    else if (mode == 0)
-    {
+        break;
+    case 0:
         return 1;
+        break;
+    default:
+        break;
     }
     goto step1;
     return 0;
@@ -149,7 +151,7 @@ void store()
     struct item items[20];
     while (true)
     {
-        printf("\n%d)Product Name: ",counter+1);
+        printf("\n%d)Product Name: ", counter + 1);
         scanf("%s", &items[counter].name);
         if (strcmp(items[counter].name, "0") == 0)
         {
@@ -231,7 +233,7 @@ void showbill(struct item product[], int counter)
     printf("________________________________\n");
     for (int i = 0; i < counter; i++)
     {
-        printf("%s \t %d \t %d \t %d\n",product[i].name, product[i].cost, product[i].quantity, product[i].cost * product[i].quantity);
+        printf("%s \t %d \t %d \t %d\n", product[i].name, product[i].cost, product[i].quantity, product[i].cost * product[i].quantity);
         total += product[i].cost * product[i].quantity;
     }
     printf("________________________________");
