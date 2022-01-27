@@ -13,7 +13,6 @@ struct item
 // ALl functions:
 void showbill(struct item items[], int counter);
 void inventory();
-void fileSetup(FILE *fp);
 int addItem(FILE *fp);
 void strlower(char c[]);
 int search(char name[]);
@@ -80,7 +79,10 @@ void inventory()
                 if (size == 0)
                 {
                     printf("File is empty!!");
-                    fileSetup(fp);
+                   //file setup 
+                    char setup[50] = "Product, Price/unit";
+                    fputs(setup, fp);
+                    fputs("\n", fp);
                 }
                 run = addItem(fp);
             }
@@ -99,14 +101,6 @@ void inventory()
         system("clear");
         fclose(fp);
     }
-}
-
-// Initial CSV setup
-void fileSetup(FILE *fp)
-{
-    char setup[50] = "Product, Price/unit";
-    fputs(setup, fp);
-    fputs("\n", fp);
 }
 
 // Add items to csv
