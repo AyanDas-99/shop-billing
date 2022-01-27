@@ -21,7 +21,6 @@ void store();
 void list();
 void pmode(char name[]);
 
-
 int main()
 {
     printf("********************************************\n************* BILLING SYSTEM ***************\n********************************************\n\n");
@@ -113,7 +112,7 @@ int addItem(FILE *fp)
 {
     char name[50];
     char price[50];
-    printf("Product name (Without space):");
+    printf("\nProduct name (Without space):");
     scanf("%s", name);
     if (strcmp(name, "0") == 0)
     {
@@ -150,7 +149,7 @@ void store()
     struct item items[20];
     while (true)
     {
-        printf("Product Name: ");
+        printf("\n%d)Product Name: ",counter+1);
         scanf("%s", &items[counter].name);
         if (strcmp(items[counter].name, "0") == 0)
         {
@@ -162,7 +161,7 @@ void store()
         items[counter].cost = search(items[counter].name);
         if (items[counter].cost == 0)
         {
-            printf("\nProduct not in inventory\nPlease add this in inventory\n");
+            printf("\nProduct not in inventory\nPlease add\n");
             addItem(fp);
             printf("\nPlease re-enter the product price:");
             scanf("%d", &items[counter].cost);
@@ -232,7 +231,7 @@ void showbill(struct item product[], int counter)
     printf("________________________________\n");
     for (int i = 0; i < counter; i++)
     {
-        printf("%s \t %d \t %d \t %d\n", product[i].name, product[i].cost, product[i].quantity, product[i].cost * product[i].quantity);
+        printf("%s \t %d \t %d \t %d\n",product[i].name, product[i].cost, product[i].quantity, product[i].cost * product[i].quantity);
         total += product[i].cost * product[i].quantity;
     }
     printf("________________________________");
@@ -258,7 +257,6 @@ void list()
             printf("%s", buffer);
         }
         printf("\n");
-
     }
 }
 
@@ -266,7 +264,6 @@ void list()
 void pmode(char name[])
 {
     printf("**************************\n");
-    printf("\t%s\n",name);
+    printf("\t%s\n", name);
     printf("**************************\n");
-
 }
