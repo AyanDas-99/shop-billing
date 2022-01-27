@@ -206,7 +206,6 @@ int search(char name[])
                 }
                 if (strcmp(name, product) == 0)
                 {
-                    // printf("Found");
                     rate = atoi(price);
                 }
                 token = strtok(NULL, ",");
