@@ -245,13 +245,20 @@ void list()
     else
     {
         char buffer[200];
+        int counter=0;
         printf("\n");
-        while (feof(fp) != true)
+        while (true)
         {
+            counter++;
             fgets(buffer, 200, fp);
+            if (feof(fp)==true)
+            {
+                break;
+            }
+            
             printf("%s", buffer);
         }
-        printf("\n");
+       printf("\n");
     }
 }
 
