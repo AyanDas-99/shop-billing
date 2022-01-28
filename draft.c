@@ -79,7 +79,7 @@ void inventory()
                 if (size == 0)
                 {
                     printf("File is empty!!");
-                   //file setup 
+                    // file setup
                     char setup[50] = "Product, Price/unit";
                     fputs(setup, fp);
                     fputs("\n", fp);
@@ -135,7 +135,7 @@ void strlower(char a[])
     }
 }
 
-//Store or billing mode
+// Store or billing mode
 void store()
 {
     pmode("Billing Mode");
@@ -215,7 +215,7 @@ int search(char name[])
     }
 }
 
-//Print the bill
+// Print the bill
 void showbill(struct item product[], int counter)
 {
     system("clear");
@@ -234,7 +234,7 @@ void showbill(struct item product[], int counter)
     printf("________________________________\n");
 }
 
-//list the content of csv
+// list the content of csv
 void list()
 {
     FILE *fp = fopen("shop.csv", "r");
@@ -245,27 +245,27 @@ void list()
     else
     {
         char buffer[200];
-        int counter=0;
+        int counter = 0;
         printf("\n");
         while (true)
         {
             counter++;
             fgets(buffer, 200, fp);
-            if (feof(fp)==true)
+            if (feof(fp) == true)
             {
                 break;
             }
-            
+
             printf("%s", buffer);
         }
-       printf("\n");
+        printf("\n");
     }
 }
 
-//print mode name
+// print mode name
 void pmode(char name[])
 {
-    printf("**************************\n");
+    printf("__________________________\n\n");
     printf("\t%s\n", name);
-    printf("**************************\n");
+    printf("__________________________\n\n");
 }
